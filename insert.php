@@ -1,19 +1,17 @@
 <?php
 require "conn.php";
+// require "validation.php";
 // name validation
-// if(strlen($_POST['name']) >= 6 && preg_match('/[A-Za-z]+$/',$_POST['name'])){
-//     $name = $_POST['name'];
-// }else{
-//     echo "There is an error.";
-// }
-
-// // email validation
-// if(strlen($_POST['email']) >= 15 &&  preg_match('/[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,4}+$/',$_POST['email'])){
-//     $email = $_POST['email'];
-// }else{
-//     echo "There is an email error";
-// }
-// $name = $_POST['name'];
+$err_name = (strlen($_POST['name']) >= 6) && (preg_match('/[A-Za-z]+$/',$_POST['name']));
+$err_email = (strlen($_POST['email']) >= 15) &&  (preg_match('/[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,4}+$/',$_POST['email']));
+if($err_name && $err_email){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    echo $err_name;exit;
+}else{
+    echo "There is an error.";
+}
+$name = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $weight = $_POST['weight'];
@@ -50,19 +48,38 @@ if($name != "" && $email != "" && $phone != "" && $weight != "" && $height != ""
             echo "ERROR: " . $_FILES["file"]["error"];
         }
     }
-    if($height != "" && $weight != ""){
-        $bmi_result =703 *( $weight / ($height * $height));
-       }
+
+    class BMICalculator {
+        private $height;
+        private $weight;
+    
+        public function __construct($height, $weight) {
+            $this->height = $height;
+            $this->weight = $weight;
+        }
+    
+        public function calculateBMI() {
+            if ($this->height != "" && $this->weight != "") {
+                $bmi_result = 703 * ($this->weight / ($this->height * $this->height));
+                return $bmi_result;
+            }
+            return null;
+        }
+    }
+    
+    $calculator = new BMICalculator($height, $weight);
+    $bmi = $calculator->calculateBMI();
+
     $date = date('Y-m-d h:i:s');
    
-    $qry = "INSERT INTO bmi(`name`,`email`,`phone`,`weight`,`height`,`bmi`,`address`,`date`,`file`) VALUES ('$name','$email','$phone','$weight','$height','$bmi_result','$address','$date','$file')";
+    $qry = "INSERT INTO bmi(`name`,`email`,`phone`,`weight`,`height`,`bmi`,`address`,`date`,`file`) VALUES ('$name','$email','$phone','$weight','$height','$bmi','$address','$date','$file')";
     if(mysqli_query($conn,$qry)){
         header('location:index.php');
     }
-}else{
-    
-    echo "name email address need to fill";
 }
+ 
+ 
+
 
 
 
