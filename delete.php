@@ -1,17 +1,14 @@
 <?php
 require "conn.php";
-
-           
-if (isset($_POST['submit'])) {
-    // $id = $_POST['id'];
-    // $updateQuery = "UPDATE bmi SET flag = 1 WHERE id".$id;
-    $updateQuery = "DELETE FROM bmi WHERE id =" .$_GET['id'];
-    if(mysqli_query($conn,$updateQuery)){
+    $id = $_GET['id'];
+    // $deleteQuery = "UPDATE SET flag=1 WHERE id = " . $id;
+    $deleteQuery = "DELETE FROM bmi WHERE id = " . $id;
+    if (mysqli_query($conn, $deleteQuery)) {
         header('location:index.php');
-    }else{               
-        echo "Update error....." . mysqli_error($conn);
+    } else {
+        echo "Delete error: " . mysqli_error($conn);
     }
-    
-}
+
+
 
 ?>

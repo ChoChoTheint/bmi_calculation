@@ -17,13 +17,13 @@ require "conn.php";
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" required>
               
             
               </div>
               <div class="form-group col-md-6">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <input type="text" class="form-control" id="email" name="email" required>
                 
                
               </div>
@@ -31,37 +31,36 @@ require "conn.php";
             <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="phone">Phone No</label>
-                  <input type="text" class="form-control" id="phone" name="phone">
+                  <input type="text" class="form-control" id="phone" name="phone" required>
              
             
                 </div>
                 <div class="form-group col-md-4">
                   <label for="weight">Weight</label>
-                  <input type="text" class="form-control" id="weight" name="weight">
+                  <input type="text" class="form-control" id="weight" name="weight" required>
                 </div>
                 <div class="form-group col-md-2">
                   <label for="height">Height</label>
-                  <input type="text" class="form-control" id="height" name="height">
+                  <input type="text" class="form-control" id="height" name="height" required>
                 </div>
               </div>
             <div class="form-group">
               <label for="address">Address </label>
-              <input type="text" class="form-control" id="address" name="address">
-         
-          
+              <input type="text" class="form-control" id="address" name="address" required>
             </div>
-    
-    
-    
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <button class="btn btn-outline-secondary" type="button">Button</button>
-                </div>
+                </div>  
+                <!-- <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="file" name="file" >
+                  <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+                </div> -->
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="file" name="file">
                   <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
                 </div>
-              </div>
+            </div>
             
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -84,11 +83,11 @@ require "conn.php";
                         echo '<th>File</th>';
                         echo '<th>Action</th>';
                         echo '</tr>';       
+                  
 
                             foreach ($result as $row){
                                 echo "<tr>";
                                 echo "<form action ='' method='POST'>";
-                                // echo "<input type='hidden' name='id' value='".$row['id']."'>";
                                 $id = $row['id'];
                                 echo "<td>".$row['id']."</td>";
                                 echo "<td>".$row['name']."</td>";
@@ -97,7 +96,7 @@ require "conn.php";
                                 echo "<td>".$row['address']."</td>";
                                 echo "<td>".$row['bmi']."</td>";
                                 echo "<td>".$row['date']."</td>";
-                                echo "<td>".$row['file']."</td>";
+                                echo "<td><a href='" . $row['file'] . "' download>" . $row['file'] . "</a></td>";
                                 echo "<td> <button type='submit' name = 'edit' class='btn btn-primary'><a href='update.php?id=$id' class='text-light'>Edit</a></button>
                                            <button type='submit' name = 'delete' class='btn btn-danger'><a href='delete.php?id=$id' class='text-light'>Delete</a></button>";
                                 echo "</form>";
@@ -107,14 +106,8 @@ require "conn.php";
                     }
                     echo '</table>';
                     echo '</div>';
-                    mysqli_free_result($result);
+                   
                 } 
-//Delete data from chroem              
-// if (isset($_POST['delete'])) {
-//   $id = $_POST['id'];
-//   $updateQuery = "UPDATE bmi SET flag = 1 WHERE id".$id;
-//   mysqli_query($conn, $updateQuery);
-//   }
 ?>
 
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,6 +1,19 @@
 <?php
 require "conn.php";
-$name = $_POST['name'];
+// name validation
+// if(strlen($_POST['name']) >= 6 && preg_match('/[A-Za-z]+$/',$_POST['name'])){
+//     $name = $_POST['name'];
+// }else{
+//     echo "There is an error.";
+// }
+
+// // email validation
+// if(strlen($_POST['email']) >= 15 &&  preg_match('/[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,4}+$/',$_POST['email'])){
+//     $email = $_POST['email'];
+// }else{
+//     echo "There is an email error";
+// }
+// $name = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $weight = $_POST['weight'];
